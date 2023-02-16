@@ -33,27 +33,39 @@ questions={
 def get_random_question_answer(conn,nickname):
 
     # generating a random question and sending it
+    # getting the list of all keys in question dict
     list_of_questions=list(questions.keys())
+
+    # generating a random number
     random_index=random.randint(0,len(questions)-1)
+
+    # generating a random question and sending it
     random_question=list_of_questions[random_index]
     conn.send(random_question.encode("utf-8"))
 
     # storing the players answer
     player_answer=conn.recv(2048).decode("utf-8")
 
-    # evaluating the answer
-    if player_answer==questions[random_question]:
-        conn.send(f"\n correct answer\nyour answer : {player_answer} \nactual answer {questions[random_question]}".encode("utf-8"))
-    else:
-        conn.send(f"{player_answer} wrong answer".encode("utf-8"))
-        conn.send(f"\nyour answer : {player_answer} \nactual answer {questions[random_question]}".encode("utf-8"))
+    # storing the actual answer
+    actual_answer=questions[random_question]
+
+    # returning variables
+    return player_answer,actual_answer,random_question
 
 def client_thread(conn,nickname):
     player_score=0
     intro="Welcome to this quiz game!\nyou will receive a question. The answer to that question should be one of a ,b ,c ,d\nGood Luck..!"
     conn.send(intro.encode("utf-8"))
     time.sleep(1)
-    get_random_question_answer(conn,nickname)
+    player_answer,actual_answer=get_random_question_answer(conn,nickname)
+
+    
+    if player_answer==actual_answer:
+        player_score+=1
+        conn.send(f"Correct answer\nYour score : {player_score}".encode("utf-8"))
+    else:
+        conn.send("Oops! Wrong answer...attempt carefully ☹️".encode("utf-8"))
+
     
 
 
