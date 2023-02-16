@@ -20,9 +20,17 @@ print("[STARTED] server started successfully...")
 questions={
     "Who developed Python Programming Language?\na) Wick van Rossum\nb) Rasmus Lerdorf\nc) Guido van Rossum\nd) Niene Stom":"c",
     "Which type of Programming does Python support?\na) object-oriented programming\nb) structured programming\nc) functional programming\nd) all of the mentioned":"d",
+    "Is Python case sensitive when dealing with identifiers?\na) no\nb) yes\nc) machine dependent\nd) none of the mentioned":"b",
+    "Which of the following is the correct extension of the Python file?\na) .python\nb) .pl\nc) .py\nd) .p":"c",
+    "Is Python code compiled or interpreted?\na) Python code is both compiled and interpreted\nb) Python code is neither compiled nor interpreted\nc) Python code is only compiled\nd) Python code is only interpreted":"a",
+    "All keywords in Python are in _________\na) Capitalized\nb) lower case\nc) UPPER CASE\nd) None of the mentioned":"d",
+    "What will be the value of the following Python expression? 4 + 3 % 5\na) 7\nb) 2\nc) 4\nd) 1":"a",
+    "Which of the following is used to define a block of code in Python language?\na) Indentation\nb) Key\nc) Brackets\nd) All of the mentioned":"a",
+    "Which keyword is used for function in Python language?\na) Function\nb) def\nc) Fun\nd) Define":"b",
+    "Which of the following character is used to give single-line comments in Python?\na) //\nb) #\nc) !\nd) /*":"b",
 }
 
-def get_random_question(conn,nickname):
+def get_random_question_answer(conn,nickname):
 
     # generating a random question and sending it
     list_of_questions=list(questions.keys())
@@ -35,10 +43,10 @@ def get_random_question(conn,nickname):
 
     # evaluating the answer
     if player_answer==questions[random_question]:
-        conn.send(f"{player_answer} Correct answer".encode("utf-8"))
+        conn.send(f"\n correct answer\nyour answer : {player_answer} \nactual answer {questions[random_question]}".encode("utf-8"))
     else:
         conn.send(f"{player_answer} wrong answer".encode("utf-8"))
-        conn.send(random_question.encode("utf-8"))
+        conn.send(f"\nyour answer : {player_answer} \nactual answer {questions[random_question]}".encode("utf-8"))
 
 def client_thread(conn,nickname):
     player_score=0

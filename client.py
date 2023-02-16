@@ -25,7 +25,7 @@ def recv():
 
 def write():
     while True:
-        msg=f'{nickname}: {input("")}'
+        msg=input("Enter your answer")
         client.send(msg.encode("utf-8"))
 
 
