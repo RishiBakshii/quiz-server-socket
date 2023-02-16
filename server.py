@@ -53,7 +53,7 @@ def client_thread(conn,nickname):
     intro="Welcome to this quiz game!\nyou will receive a question. The answer to that question should be one of a ,b ,c ,d\nGood Luck..!"
     conn.send(intro.encode("utf-8"))
     time.sleep(1)
-    get_random_question(conn,nickname)
+    get_random_question_answer(conn,nickname)
     
 
 
