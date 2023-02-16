@@ -1,8 +1,22 @@
 import socket
 import threading
-import random
+import time
 
-nickname=input("Enter you name to join : ")
+
+def loading_animation():
+    animation = "|/-\\"
+    idx = 0
+    while idx<=20:
+        print("Connecting with the server...",animation[idx % len(animation)], end="\r")
+        idx += 1
+        time.sleep(0.1)
+
+nickname=input("Enter your name to join the quiz : ")
+time.sleep(1)
+loading_animation()
+time.sleep(2)
+
+
 
 client=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 ip_address="127.0.0.1"
@@ -25,7 +39,8 @@ def recv():
 
 def write():
     while True:
-        msg=input("Enter your answer")
+        time.sleep(10)
+        msg=input("\nEnter your answer: \n\n")
         client.send(msg.encode("utf-8"))
 
 

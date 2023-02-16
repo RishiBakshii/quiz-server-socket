@@ -1,3 +1,4 @@
 # quiz-server-socket
 
-socket programming
+This repo contains the quiz server
+(socket programming code)
